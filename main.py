@@ -1,4 +1,5 @@
 from pickle import TRUE
+from pkgutil import get_data
 import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
@@ -7,15 +8,17 @@ from dash.dependencies import Input, Output, State
 from components.styles import *
 from components.sidebar import *
 from components.navbar import *
+from data.datasets import Datasets
+
 
 from components.app import app
 
-from pages import index,page1, page2,page3,page4,not_found
+from pages import index, page1, page2, page3, page4, not_found
 
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], 
-suppress_callback_exceptions=True, 
-title='ds4a')
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP],
+                suppress_callback_exceptions=True,
+                title='ds4a')
 
 sidebar_callbacks(app)
 navbar_callbacks(app)
@@ -25,11 +28,12 @@ content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
 
 app.layout = html.Div(
     [dcc.Store(id="side_click"),
-    dcc.Location(id="url"), 
-    navbar, 
-    sidebar, 
-    content,
-    ],
+     dcc.Location(id="url"),
+     navbar,
+     content,
+     sidebar,
+
+     ],
 )
 
 
@@ -47,9 +51,9 @@ def toggle_active_links(pathname):
 
 
 @app.callback(
-    Output("page-content", "children"), 
+    Output("page-content", "children"),
     [Input("url", "pathname")]
-    )
+)
 def render_page_content(pathname):
     if pathname in ["/"]:
         return index.layout
@@ -66,5 +70,7 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
-    
+
+    global DATA
+    DATA = Datasets.get_data()
     app.run_server(debug=True, port=8086)

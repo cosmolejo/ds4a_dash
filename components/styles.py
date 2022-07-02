@@ -7,7 +7,7 @@ SIDEBAR_STYLE = {
     "top": 62.5,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    "width": "20rem",
     "height": "100%",
     "z-index": 1,
     "overflow-x": "hidden",
@@ -19,9 +19,9 @@ SIDEBAR_STYLE = {
 SIDEBAR_HIDEN = {
     "position": "fixed",
     "top": 62.5,
-    "left": "-16rem",
+    "left": "-20rem",
     "bottom": 0,
-    "width": "16rem",
+    "width": "20rem",
     "height": "100%",
     "z-index": 1,
     "overflow-x": "hidden",
@@ -34,7 +34,7 @@ SIDEBAR_HIDEN = {
 # add some padding.
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
-    "margin-left": "18rem",
+    "margin-left": "20rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
@@ -46,4 +46,10 @@ CONTENT_STYLE1 = {
     "margin-right": "2rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
+}
+
+DATE_PICKER_STYLE ={
+   "position":"sticky",
+   "top":0
+
 }
