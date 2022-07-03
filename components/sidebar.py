@@ -31,7 +31,7 @@ date_picker = dcc.DatePickerRange(
 
 sidebar = html.Div(
     [
-        html.Img(src="assets/img/ds4a.jpg", width="200px"),
+        html.Img(src="assets/img/LOGO.png", width="300px"),
         html.Hr(),
          html.H5("Select dates"),
         date_picker,

@@ -22,6 +22,7 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP],
 
 sidebar_callbacks(app)
 navbar_callbacks(app)
+page1.page1_callbacks(app)
 
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
@@ -46,7 +47,7 @@ app.layout = html.Div(
 def toggle_active_links(pathname):
     if pathname == "/":
         # Treat page 1 as the homepage / index
-        return True, False, False
+        return False, False, False
     return [pathname == f"/page-{i}" for i in range(1, 4)]
 
 
@@ -71,6 +72,5 @@ def render_page_content(pathname):
 
 if __name__ == "__main__":
 
-    global DATA
-    DATA = Datasets.get_data()
-    app.run_server(debug=True, port=8086)
+  
+    app.run_server(debug=True, port=8086 )
