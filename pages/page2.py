@@ -7,34 +7,15 @@ from components.app import app
 
 
 
+df_heatmap_barranquilla = pd.read_csv("data/local/df_heatmap_barranquilla.csv")
+df_heatmap_envigado = pd.read_csv("data/local/df_heatmap_envigado.csv")
+df_heatmap_palmira = pd.read_csv("data/local/df_heatmap_palmira.csv")
+df_heatmap_medellin = pd.read_csv("data/local/df_heatmap_medellin.csv")
 
-df_envigado = pd.read_csv("data/Envigado_final.csv", low_memory=False)
-df_medellin = pd.read_csv("data/Medellin_final.csv", low_memory=False)
-
-
-#Creamos LAT y LON con base a coordenadas
-df_envigado["LAT"]=df_envigado["Coordenadas"].str.split(",").str[0].str[1:].str[:1]+"."+df_envigado["Coordenadas"].str.split(",").str[0].str[1:].str[1:-2]
-df_envigado["LON"]=df_envigado["Coordenadas"].str.split(",").str[1].str[:-1].str[:4]+"."+df_envigado["Coordenadas"].str.split(",").str[1].str[:-3].str[4:]
-df_envigado["LAT"]=df_envigado["LAT"].astype(float)
-df_envigado["LON"]=df_envigado["LON"].astype(float)
-
-#Eliminamos LAT y LON que no corresponden con la ciudad
-df_envigado.loc[(df_envigado["LAT"]<6) | (df_envigado["LAT"]>6.2),"LAT"]=np.nan
-df_envigado.loc[(df_envigado["LON"]<-77) | (df_envigado["LON"]>-75),"LON"]=np.nan
-
-#Creamos LAT y LON con base a coordenadas
-df_medellin["LON"]=df_medellin["Coordenadas"].str.split(",").str[0].str[1:]
-df_medellin["LAT"]=df_medellin["Coordenadas"].str.split(",").str[1].str[:-1]
-df_medellin["LAT"]=df_medellin["LAT"].astype(float)
-df_medellin["LON"]=df_medellin["LON"].astype(float)
-
-
-#Eliminamos LAT y LON que no corresponden con la ciudad
-df_medellin.loc[(df_medellin["LAT"]<6) | (df_medellin["LAT"]>6.4),"LAT"]=np.nan
-df_medellin.loc[(df_medellin["LON"]<-76) | (df_medellin["LON"]>-75),"LON"]=np.nan
-
-df_heatmap_envigado = df_envigado.groupby(["LAT","LON"])["Fecha"].count().reset_index().rename(columns={"Fecha":"Cuenta"}).sort_values(["Cuenta"],ascending=False)
-df_heatmap_medellin = df_medellin.groupby(["LAT","LON"])["Fecha"].count().reset_index().rename(columns={"Fecha":"Cuenta"}).sort_values(["Cuenta"],ascending=False)
+accidentes_por_year = pd.read_csv("data/local/accidentes_por_year.csv")
+accidentes_por_mes = pd.read_csv("data/local/accidentes_por_mes.csv")
+accidentes_por_dia = pd.read_csv("data/local/accidentes_por_dia.csv")
+accidentes_hora = pd.read_csv("data/local/accidentes_hora.csv")
 
 
 envigado_heat = px.density_mapbox(df_heatmap_envigado, lat='LAT', lon='LON', z='Cuenta', radius=10,
