@@ -143,7 +143,7 @@ param = dcc.Dropdown(
 
 sidebar = html.Div(
     [
-        html.Img(src="assets/img/LOGO.png", width="200px", style={'textAlign':'center'}),
+        html.Img(src="./assets/img/LOGO.png", width="200px", style={'textAlign':'center'}),
         html.Hr(),
         html.H5("Select dates"),
         date_picker

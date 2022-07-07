@@ -217,7 +217,7 @@ param2 = dcc.Dropdown(
 
 sidebar = html.Div(
     [
-        html.Img(src="assets/img/LOGO.png", width="150px",
+        html.Img(src="./assets/img/LOGO.png", width="150px",
                  style={'textAlign': 'center'}),
         html.Hr(),
         html.H5("Date"),
