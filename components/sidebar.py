@@ -10,35 +10,15 @@ from components.app import app
 
 
 
-
-
-##############################################################################
-# Date Picker
-##############################################################################
-date_picker = dcc.DatePickerRange(
-            id="my-date-picker-range",
-            min_date_allowed=date(1995, 8, 5),
-            max_date_allowed=date(2017, 9, 19),
-            initial_visible_month=date(2017, 8, 5),
-            end_date=date(2017, 8, 25),
-            style=DATE_PICKER_STYLE,
-        )
-
-
-
-
-
-
 sidebar = html.Div(
     [
-        html.Img(src="assets/img/LOGO.png", width="300px"),
+        html.Img(src="assets/img/LOGO.png", width="200px", style={'textAlign':'center'}),
         html.Hr(),
-         html.H5("Select dates"),
-        date_picker,
+        #html.H5("Select dates"),
         
     ],
     id="sidebar",
-    style=SIDEBAR_STYLE,
+    style=SIDEBAR_HIDEN,
 )
 
 
@@ -63,8 +43,8 @@ def sidebar_callbacks(app):
                 content_style = CONTENT_STYLE
                 cur_nclick = "SHOW"
         else:
-            sidebar_style = SIDEBAR_STYLE
-            content_style = CONTENT_STYLE
+            sidebar_style = SIDEBAR_HIDEN
+            content_style = CONTENT_STYLE1
             cur_nclick = "SHOW"
 
         return sidebar_style, content_style, cur_nclick

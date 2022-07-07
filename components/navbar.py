@@ -6,35 +6,40 @@ from components.styles import *
 from dash.dependencies import Input, Output, State
 
 
-
 navbar = dbc.NavbarSimple(
     children=[
-         dbc.Nav(
-            [
-                dbc.NavLink(
-                    "National overview",
-                    href="/page-1",
-                    active="exact",
-                    id="page-1-link",
-                ),
-                dbc.NavLink(
-                    "Local overview", href="/page-2", active="exact", id="page-2-link"
-                ),
-                dbc.NavLink(
-                    "Clusters", href="/page-3", active="exact", id="page-3-link"
-                ),
-                dbc.NavLink(
-                    "Accidents prediction",
-                    href="/page-4",
-                    active="exact",
-                    id="page-4-link",
-                ),
-                
-            ],
+        dbc.Nav(
+             [
+                 dbc.NavLink(
+                     "National overview",
+                     href="/page-1",
+                     active="exact",
+                     id="page-1-link",
+                 ),
+                 dbc.NavLink(
+                     "Local overview", 
+                     href="/page-2", 
+                     active="exact", 
+                     id="page-2-link"
+                 ),
+                 dbc.NavLink(
+                     "Clusters", 
+                     href="/page-3", 
+                     active="exact", 
+                     id="page-3-link"
+                 ),
+                 dbc.NavLink(
+                     "About Us",
+                     href="/page-4",
+                     active="exact",
+                     id="page-4-link",
+                 ),
+
+             ],
             vertical=False,
             pills=True,
         ),
-        
+
         dbc.Button(
             "☰ Filters",
             outline=False,
@@ -43,7 +48,7 @@ navbar = dbc.NavbarSimple(
             id="btn_sidebar",
         ),
     ],
-    brand="DS4A",
+    brand="Crash Analytics - TEAM 120",
     brand_href="/",
     color="dark",
     dark=True,
@@ -52,4 +57,4 @@ navbar = dbc.NavbarSimple(
 
 
 def navbar_callbacks(app):
-   pass
+    pass

@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output, State
 from components.styles import *
 from components.sidebar import *
 from components.navbar import *
-from data.datasets import Datasets
+
 
 
 from components.app import app
@@ -16,13 +16,11 @@ from components.app import app
 from pages import index, page1, page2, page3, page4, not_found
 
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP],
-                suppress_callback_exceptions=True,
-                title='ds4a')
 
 sidebar_callbacks(app)
 navbar_callbacks(app)
 page1.page1_callbacks(app)
+page3.page3_callbacks(app)
 
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
@@ -68,6 +66,26 @@ def render_page_content(pathname):
         return page4.layout
     # If the user tries to reach a different page, return a 404 message
     return not_found.layout
+
+
+
+@app.callback(
+    Output("sidebar", "children"),
+    [Input("url", "pathname")]
+)
+def render_sidebar_content(pathname):
+    if pathname == "/page-1":
+        return page1.sidebar
+    elif pathname == "/page-2":
+        return page2.sidebar
+    elif pathname == "/page-3":
+        return page3.sidebar
+
+    # # If the user tries to reach a different page, return a 404 message
+    # return not_found.layout
+
+
+
 
 
 if __name__ == "__main__":

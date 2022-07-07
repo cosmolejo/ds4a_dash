@@ -1,9 +1,9 @@
 
 
-
 # the style arguments for the sidebar. We use position:fixed and a fixed width
 SIDEBAR_STYLE = {
     "position": "fixed",
+    'textAlign': 'center',
     "top": 62.5,
     "left": 0,
     "bottom": 0,
@@ -13,13 +13,14 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#f8f9fa", #cambiar color!!
+ #   "background-color": "#f8f9fa",  # cambiar color!!,
+    'textAlign': 'center',
 }
 
 SIDEBAR_HIDEN = {
     "position": "fixed",
     "top": 62.5,
-    "left": "-20rem",
+    "left": "-100rem",
     "bottom": 0,
     "width": "20rem",
     "height": "100%",
@@ -27,7 +28,8 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-    "background-color": "#f8f9fa",
+#    "background-color": "#f8f9fa",
+    'textAlign': 'center',
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -37,7 +39,7 @@ CONTENT_STYLE = {
     "margin-left": "20rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+#    "background-color": "#f8f9fa",
 }
 
 CONTENT_STYLE1 = {
@@ -45,11 +47,11 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+#    "background-color": "#f8f9fa",
 }
 
-DATE_PICKER_STYLE ={
-   "position":"sticky",
-   "top":0
+DATE_PICKER_STYLE = {
+    "position": "sticky",
+    "top": 0
 
 }
