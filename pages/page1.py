@@ -2,6 +2,7 @@ from datetime import date
 from sqlite3 import Row
 
 from numpy import NAN
+from components.constants import LOGO
 
 from components.styles import *
 from dash import dcc, html, Input, Output, callback
@@ -217,7 +218,7 @@ param2 = dcc.Dropdown(
 
 sidebar = html.Div(
     [
-        html.Img(src="./assets/img/LOGO.png", width="150px",
+        html.Img(src=LOGO, width="150px",
                  style={'textAlign': 'center'}),
         html.Hr(),
         html.H5("Date"),

@@ -1,10 +1,12 @@
 from datetime import date
+from html.entities import html5
 from dash import dcc, html, Input, Output, callback
 import pandas as pd
 import numpy as np
 import plotly.express as px
 
 from components.app import app
+from components.constants import LOGO
 from components.styles import *
 
 heat_list = ['barranquilla','envigado','palmira','medellin']
@@ -16,11 +18,11 @@ df_heatmap_medellin = pd.read_csv("data/local/df_heatmap_medellin.csv")
 
 
 
-df_Barranquilla = pd.read_csv('data/local/Barranquilla_final.csv')
-df_Bucaramanga = pd.read_csv('data/local/Bucaramanga_final.csv')
-df_Envigado = pd.read_csv('data/local/Envigado_final.csv')
-df_Palmira = pd.read_csv('data/local/Palmira_final.csv')
-df_Medellin = pd.read_csv('data/local/Medellin_final.csv')
+df_Barranquilla = pd.read_csv('data/local/Barranquilla_final.csv', low_memory=False)
+df_Bucaramanga = pd.read_csv('data/local/Bucaramanga_final.csv', low_memory=False)
+df_Envigado = pd.read_csv('data/local/Envigado_final.csv', low_memory=False)
+df_Palmira = pd.read_csv('data/local/Palmira_final.csv', low_memory=False)
+df_Medellin = pd.read_csv('data/local/Medellin_final.csv', low_memory=False)
 
 df_Bucaramanga=df_Bucaramanga.rename(columns={"Cuenta Heridos":"Cuenta heridos","Cuenta Muertos":"Cuenta muertos"})
 df_Envigado=df_Envigado.rename(columns={"Cuenta Heridos":"Cuenta heridos","Cuenta Muertos":"Cuenta muertos"})
@@ -143,10 +145,12 @@ param = dcc.Dropdown(
 
 sidebar = html.Div(
     [
-        html.Img(src="./assets/img/LOGO.png", width="200px", style={'textAlign':'center'}),
+        html.Img(src=LOGO, width="200px", style={'textAlign':'center'}),
         html.Hr(),
-        html.H5("Select dates"),
-        date_picker
+        html.H5("Heatmap city"),
+        heat_cities,
+        html.H5('Barplot city'),
+        bar_cities,
 
         
     ],
