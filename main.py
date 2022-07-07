@@ -1,3 +1,4 @@
+from http import server
 from pickle import TRUE
 from pkgutil import get_data
 import dash
@@ -12,6 +13,9 @@ from components.navbar import *
 
 
 from components.app import app
+
+server = app.server()
+
 
 from pages import index, page1, page2, page3, page4, not_found
 
