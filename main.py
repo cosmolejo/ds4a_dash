@@ -14,7 +14,7 @@ from components.navbar import *
 
 from components.app import app
 
-server = app.server()
+server = app.server
 
 
 from pages import index, page1, page2, page3, page4, not_found
