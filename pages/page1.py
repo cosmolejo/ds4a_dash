@@ -5,6 +5,7 @@ from numpy import NAN
 from components.constants import LOGO
 
 from components.styles import *
+from dash.exceptions import PreventUpdate
 from dash import dcc, html, Input, Output, callback
 import dash_bootstrap_components as dbc
 from components.app import app
@@ -45,12 +46,6 @@ elemento_x = 'Clima'  # ['Clase accidente','Clima']
 valor = "Porcentaje"
 elemento_y = "Cuenta muertos"
 
-# Map_Fig = px.choropleth(map_df, geojson=map_df.geometry,
-#                         locations=map_df.index, color="Accidentes")
-# Map_Fig.update_geos(fitbounds="locations", visible=True)
-# Map_Fig.update_layout(title="National highway's accidents",
-#                       paper_bgcolor="#F8F9F9")
-
 
 Map_Fig_norm = px.choropleth(map_df, geojson=map_df.geometry,
                              locations=map_df.index, color="AccidentesNormalizado")
@@ -76,14 +71,14 @@ base[parametro] = base[parametro].astype("str")
 
 # Grafico:
 
-graph_date = px.bar(base,
+graph_date_nal = px.bar(base,
                     x=elemento_fecha,
                     y="Accidentes",
                     color=parametro,
                     barmode="group",
                     text="Accidentes",
                     title="Diagrama de barras para accidentes con \n" + parametro + " en "+departamento+" por "+elemento_fecha)
-graph_date.update_xaxes(dtick=1)
+graph_date_nal.update_xaxes(dtick=1)
 
 
 base2 = df_Nacional.loc[df_Nacional["Departamento"] == departamento]
@@ -105,10 +100,7 @@ graph_cat = px.bar(base2,
 
 base3 = df_Nacional.copy(deep=True)
 base3 = base3.loc[base3["Fecha"].notnull(), ]
-# lista_fechas = ["Year","Month","DOW"]
 
-# lista_elemento_y = ["Cuenta heridos","Cuenta muertos"]
-# base = base.loc[base["Departamento"]==departamento]
 
 
 base3["Year"] = pd.to_datetime(
@@ -134,15 +126,15 @@ layout = dbc.Container([
 
         dbc.Col([
             dbc.Row([
-                dcc.Graph(figure=graph_date, id="graph_date")
+                dcc.Graph(figure=graph_date_nal, id="graph_date_nal")
             ])
-        ],width={'size': 5, 'offset': 0}),
+        ], width={'size': 5, 'offset': 0}),
     ]),
     html.H5(""),
     dbc.Row([
         dbc.Col([
             dcc.Graph(figure=graph_cat, id="graph_cat")
-        ],width={'size': 12, 'offset': 0})
+        ], width={'size': 12, 'offset': 0})
 
     ]),
     html.H5(""),
@@ -159,61 +151,35 @@ layout = dbc.Container([
 ], fluid=True)
 
 
-##############################################################################
-# Date Picker
-##############################################################################
-
-date_picker = dcc.DatePickerRange(
-    id="my-date-picker-range",
-    min_date_allowed=date(1995, 8, 5),
-    max_date_allowed=date(2017, 9, 19),
-    initial_visible_month=date(2017, 8, 5),
-    end_date=date(2017, 8, 25),
-   
-)
 
 depart = dcc.Dropdown(
-    departments,
-    [],
+    options=departments,
+    value=[],
     id='departamento_dropdown',
-    multi=True,
-    style = {'color':'black'})
+    multi=False,
+    style={'color': 'black'})
 
 interval = dcc.Dropdown(
-    ['Year', "Month", "DOW"],
-    ['Year'],
+    options=['Year', "Month", "DOW"],
+    value=['Year'],
     id='interval_dropdown',
     multi=False,
-    style = {'color':'black'})
+    style={'color': 'black'})
 
-
-#  dcc.RadioItems(
-#     ['Year', "Month", "DOW"],
-#     'Year',
-#     id='departamento_dropdown',
-#)
 
 param = dcc.Dropdown(
-    ['Heridos', 'Muertos'],
-    ['Heridos'],
+    options=['Heridos', 'Muertos'],
+    value=['Heridos'],
     id='param_dropdown',
     multi=False,
-    style = {'color':'black'})
+    style={'color': 'black'})
 
 param2 = dcc.Dropdown(
-    ['Clase accidente','Clima'],
-    ['Clima'],
+    options=['Clase accidente', 'Clima'],
+    value=['Clima'],
     id='param2_dropdown',
     multi=False,
-    style = {'color':'black'})
-
-
-# dcc.RadioItems(
-#     ['Heridos', 'Muertos'],
-#     'Montréal',
-#     id="radio_param",
-#     inline=False
-# )
+    style={'color': 'black'})
 
 
 sidebar = html.Div(
@@ -221,8 +187,6 @@ sidebar = html.Div(
         html.Img(src=LOGO, width="150px",
                  style={'textAlign': 'center'}),
         html.Hr(),
-        html.H5("Date"),
-        date_picker,
         html.H5("Departments"),
         depart,
         html.H5("Graph the interval"),
@@ -239,22 +203,78 @@ sidebar = html.Div(
 )
 
 
-def page1_callbacks(app):
-    pass
-    # @app.callback(Output("cluster", "figure"),
-    #               Input("city_dropdown", "value"),)
-    # def filter_countries(city_dropdown):
-    #     if not city_dropdown:
-    #         # Return all the rows on initial load/no country selected.
-    #         lugar = 'Todo'
-    #         base = df_mes_dow
-    #     else:
-    #         lugar = city_dropdown
-    #         base = df_mes_dow.query('Ciudad in @city_dropdown')
-    #     cluster = px.scatter(base,
-    #                          x="Heridos", y="Muertos",
-    #                          hover_data=["Ciudad", "Heridos",
-    #                                      "Muertos", "Cluster"],
-    #                          color='Cluster', title='Clusters by DOW and month')
 
-    #     return cluster
+
+
+def page1_callbacks(app):
+    @app.callback(
+        Output("graph_date_nal", "figure"),
+        Input("departamento_dropdown", "value"),
+        Input("interval_dropdown", "value"),
+        Input("param_dropdown", "value"),
+
+    )
+    def filter_departments(departamento_dropdown, interval_dropdown, param_dropdown):
+        if not departamento_dropdown or not interval_dropdown or not param_dropdown:
+            raise PreventUpdate
+        else:
+            departamento = departamento_dropdown
+            elemento_fecha = interval_dropdown
+            parametro = param_dropdown
+
+        base = df_Nacional.query("Departamento in @departamento")
+        #loc[df_Nacional["Departamento"] == departamento]
+        if elemento_fecha == "Year":
+            base = base.groupby([pd.to_datetime(base["Fecha"]).dt.year, parametro])["Unnamed: 0"].count(
+            ).reset_index().rename(columns={"Fecha": "Year", "Unnamed: 0": "Accidentes"})
+        elif elemento_fecha == "Month":
+            base = base.groupby([pd.to_datetime(base["Fecha"]).dt.month, parametro])["Unnamed: 0"].count(
+            ).reset_index().rename(columns={"Fecha": "Month", "Unnamed: 0": "Accidentes"})
+        elif elemento_fecha == "DOW":
+            base = base.groupby(["DOW", parametro])["Unnamed: 0"].count().reset_index(
+            ).rename(columns={"Fecha": "Year", "Unnamed: 0": "Accidentes"})
+
+        base[parametro] = base[parametro].astype("str")
+
+        # Grafico:
+
+        graph_date = px.bar(base,
+                            x=elemento_fecha,
+                            y="Accidentes",
+                            color=parametro,
+                            barmode="group",
+                            text="Accidentes",
+                            title="Diagrama de barras para accidentes con \n" + str(parametro) + " en "+str(departamento)+" por "+str(elemento_fecha))
+        graph_date.update_xaxes(dtick=1)
+        return graph_date
+    @app.callback(
+        Output('graph_cat','figure'),
+        Input('departamento_dropdown','value'),
+        Input('param2_dropdown','value'),
+        Input('param_dropdown','value'),
+    )
+    def filter_categories(departamento_dropdown,param2_dropdown,param_dropdown):
+
+        if not departamento_dropdown or not param2_dropdown  or not param_dropdown:
+            raise PreventUpdate
+        else:
+            departamento = departamento_dropdown
+            elemento_x = param2_dropdown
+            parametro = param_dropdown
+
+        base2 = df_Nacional.loc[df_Nacional["Departamento"] == departamento]
+        base2 = base2.groupby([elemento_x, parametro])["Unnamed: 0"].count(
+        ).reset_index().rename(columns={"Fecha": "Year", "Unnamed: 0": "Accidentes"})
+        base2[parametro] = base2[parametro].astype("str")
+        base2["Porcentaje"] = base2.groupby(elemento_x)["Accidentes"].apply(
+            lambda x: round(x/x.sum()*100, 2))
+
+        graph_cat = px.bar(base2,
+                        x=elemento_x,
+                        y=valor,
+                        color=parametro,
+                        barmode="group",
+                        title="Diagrama de barras para accidentes con \n" +
+                        parametro + " en "+str(departamento) + " según " + str(elemento_x)
+                        )
+        return graph_cat

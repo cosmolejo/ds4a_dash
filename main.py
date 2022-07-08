@@ -22,6 +22,7 @@ server = app.server
 sidebar_callbacks(app)
 navbar_callbacks(app)
 page1.page1_callbacks(app)
+page2.page2_callbacks(app)
 page3.page3_callbacks(app)
 
 
@@ -83,8 +84,7 @@ def render_sidebar_content(pathname):
     elif pathname == "/page-3":
         return page3.sidebar
 
-    # # If the user tries to reach a different page, return a 404 message
-    # return not_found.layout
+
 
 
 

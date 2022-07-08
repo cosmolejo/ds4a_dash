@@ -68,7 +68,7 @@ sidebar = html.Div(
 def page3_callbacks(app):
     @app.callback(Output("cluster", "figure"),
                   Input("city_dropdown", "value"),)
-    def filter_countries(city_dropdown):
+    def filter_clusters(city_dropdown):
         if not city_dropdown:
             # Return all the rows on initial load/no country selected.
             lugar = 'Todo'
