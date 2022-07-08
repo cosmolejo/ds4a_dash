@@ -163,7 +163,7 @@ layout = dbc.Container([
                         style=CARD_TITLE
                     ),
                     html.P(
-                        'Data science and engineering M.Sc. Student @Politecnico di Torino',
+                        'Pharmacist. Msc Pharmaceutical and Alimentary Sciences.',
                         className="card-text"
                     ),
                     html.A(
