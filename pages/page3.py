@@ -48,7 +48,8 @@ drop = dcc.Dropdown(
     options=[{"label": i, "value": i} for i in df_mes_dow.Ciudad.unique()],
     value=[],
     id='city_dropdown',
-    multi=True)
+    multi=True,
+    style={'color': 'black'})
 
 sidebar = html.Div(
     [
