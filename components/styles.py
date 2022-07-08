@@ -13,7 +13,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
- #   "background-color": "#f8f9fa",  # cambiar color!!,
+    #   "background-color": "#f8f9fa",  # cambiar color!!,
     'textAlign': 'center',
 }
 
@@ -28,7 +28,7 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-#    "background-color": "#f8f9fa",
+    #    "background-color": "#f8f9fa",
     'textAlign': 'center',
 }
 
@@ -39,7 +39,7 @@ CONTENT_STYLE = {
     "margin-left": "20rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-#    "background-color": "#f8f9fa",
+    #    "background-color": "#f8f9fa",
 }
 
 CONTENT_STYLE1 = {
@@ -47,11 +47,37 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-#    "background-color": "#f8f9fa",
+    #    "background-color": "#f8f9fa",
 }
 
 DATE_PICKER_STYLE = {
     "position": "sticky",
     "top": 0
 
+}
+
+CARD_STYLE = {
+    "margin-top": "2em",
+    "padding": " 1.5em 0.5em 0.5em",
+    "border-radius": "2em",
+    "text-align": "center",
+    "box-shadow": "0 5px 10px rgba(0, 0, 0, 0.2)"
+}
+
+CARD_IMG_STYLE = {
+    "width": "65%",
+    "border-radius": "50%",
+    "margin": "0 auto",
+    "box-shadow": "0 0 10px rgba(0, 0, 0, 0.2)"
+}
+
+CARD_TITLE = {
+    "font-weight": "700",
+    "font-size": "1.5em"
+}
+CARD_BUTTON = {
+   "border-radius": "5em",
+  "background-color": "teal",
+  "color": "#ffffff",
+  "padding": "0.5em 1.5em"
 }
